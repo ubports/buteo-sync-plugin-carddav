@@ -1,0 +1,25 @@
+Source: buteo-sync-plugin-carddav
+Section: libs
+Priority: optional
+Maintainer: Alberto Mardegan <mardy@users.sourceforge.net>
+Build-Depends: cmake,
+               debhelper (>= 9),
+               pkg-config,
+               libaccounts-qt5-dev,
+               libbuteosyncfw5-dev (>= 0.8.5),
+               libsignon-qt5-dev,
+               qt5-default,
+               qtbase5-dev,
+               qtcontacts-sqlite-qt5-extension-dev,
+               qtpim5-dev,
+               signon-plugin-oauth2-dev,
+Standards-Version: 3.9.5
+Homepage: https://launchpad.net/buteo-sync-plugins-contacts
+
+Package: buteo-sync-plugins-contacts-carddav
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         buteo-syncfw,
+Description: Buteo CardDav contact sync plugin
+ Buteo sync plugin for contacts, interfacing with CardDav servers
