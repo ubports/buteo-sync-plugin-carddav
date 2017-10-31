@@ -1,0 +1,5 @@
+buteo-sync-plugin-carddav (0.0.29+ubports) xenial; urgency=medium
+
+  * Imported into ubports.
+
+ -- Alberto Mardegan <mardy@users.sourceforge.net>  Tue, 17 Oct 2017 18:41:59 +0300
