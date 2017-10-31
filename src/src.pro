@@ -5,6 +5,7 @@ include(src.pri)
 QMAKE_CXXFLAGS = -Wall \
     -g \
     -Wno-cast-align \
+    -Wno-unused-function \
     -O2 -finline-functions
 
 !contains (DEFINES, BUTEO_OUT_OF_PROCESS_SUPPORT) {
