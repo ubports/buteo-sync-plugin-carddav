@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service id="nextcloud-buteo-contacts">
+  <type>carddav</type>
+  <name>NextCloud Contacts</name>
+  <provider>nextcloud</provider>
+
+  <template>
+    <setting name="server_path">remote.php/dav/</setting>
+  </template>
+</service>

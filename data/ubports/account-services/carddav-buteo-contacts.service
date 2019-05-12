@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service id="cardav-buteo-contacts">
+  <type>carddav</type>
+  <name>Generic CardDAV Contacts</name>
+  <provider>generic-caldav</provider>
+</service>
