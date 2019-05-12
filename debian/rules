@@ -10,6 +10,10 @@ export QT_SELECT := qt5
 override_dh_install:
 	# remove the tests
 	rm -rf debian/tmp/opt
+	# Add account files
+	mkdir -p debian/buteo-sync-plugins-contacts-carddav/usr/share/accounts/services/
+	cp data/ubports/account-services/* \
+		debian/buteo-sync-plugins-contacts-carddav/usr/share/accounts/services/
 	dh_install --fail-missing
 
 %:
