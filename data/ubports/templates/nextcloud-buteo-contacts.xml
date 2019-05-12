@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<profile name="carddav.Contacts" type="sync" >
+  <key name="destinationtype" value="online"/>
+  <key name="enabled" value="false"/>
+  <key name="hidden" value="true"/>
+  <key name="use_accounts" value="true"/>
+  <key name="remote_service_name" value="nextcloud-buteo-contacts"/>
+  <key name="scheduled" value="true"/>
+  <key name="sync_always_up_to_date" value="true"/>
+  <key name="sync_since_days_past" value="30"/>
+  <key name="sync_on_change" value="true"/>
+  <key name="sync_on_change_after" value="60"/>
+
+  <profile type="client" name="carddav">
+    <key value="two-way" name="Sync Direction"/>
+    <key value="carddav" name="Sync Protocol"/>
+    <key value="HTTP" name="Sync Transport"/>
+    <key value="prefer remote" name="conflictpolicy" />
+  </profile>
+
+</profile>
+

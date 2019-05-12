@@ -12,6 +12,10 @@ override_dh_install:
 	mkdir -p debian/buteo-sync-plugins-contacts-carddav/usr/share/accounts/services/
 	cp data/ubports/account-services/* \
 		debian/buteo-sync-plugins-contacts-carddav/usr/share/accounts/services/
+	# Add Buteo profiles
+	mkdir -p debian/buteo-sync-plugins-contacts-carddav/etc/buteo/profiles/sync/
+	cp data/ubports/templates/* \
+		debian/buteo-sync-plugins-contacts-carddav/etc/buteo/profiles/sync/
 	dh_install --fail-missing
 
 %:
