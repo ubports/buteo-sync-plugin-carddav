@@ -22,6 +22,8 @@
 
 #include "auth_p.h"
 #include <LogMacros.h>
+#include <QDir>
+#include <QUrl>
 
 #ifdef USE_SAILFISHKEYPROVIDER
 #include <sailfishkeyprovider.h>
@@ -87,6 +89,7 @@ void Auth::signIn(int accountId)
     }
 
     // determine the remote URL from the account settings, and then sign in.
+    Accounts::AccountService globalSrv(m_account, Accounts::Service());
     Accounts::AccountService accSrv(m_account, srv);
     if (!accSrv.isEnabled()) {
         LOG_WARNING("Service:" << srv.name() << "is not enabled for account:" << m_account->id());
@@ -95,6 +98,24 @@ void Auth::signIn(int accountId)
     }
     m_ignoreSslErrors = accSrv.value("ignore_ssl_errors").toBool();
     m_serverUrl = accSrv.value("server_address").toString();
+    if (m_serverUrl.isEmpty()) {
+        QUrl host(globalSrv.value("host").toString());
+        QString path = accSrv.value("server_path").toString();
+        if (!path.isEmpty()) {
+            if (path[0] != '/') {
+                /* If "server_path" holds a relative path, then let's assume
+                 * it's relative to the host path. This nicely handles the case
+                 * of NextCloud/OwnCloud installations: "host" defines the base
+                 * URL, whereas "server_path" would be the subdirectory where
+                 * the DAV stuff is located.
+                 */
+                path = QDir::cleanPath(host.path() + '/' + path);
+            }
+            host.setPath(path);
+        }
+        m_serverUrl = host.toString();
+    }
+
     m_addressbookPath = accSrv.value("addressbook_path").toString(); // optional, may be empty.
     if (m_serverUrl.isEmpty()) {
         LOG_WARNING(Q_FUNC_INFO << "no valid server url setting in account" << accountId);
