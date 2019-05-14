@@ -87,29 +87,29 @@ void Auth::signIn(int accountId)
     }
 
     // determine the remote URL from the account settings, and then sign in.
-    m_account->selectService(srv);
-    if (!m_account->enabled()) {
+    Accounts::AccountService accSrv(m_account, srv);
+    if (!accSrv.isEnabled()) {
         LOG_WARNING("Service:" << srv.name() << "is not enabled for account:" << m_account->id());
         emit signInError();
         return;
     }
-    m_ignoreSslErrors = m_account->value("ignore_ssl_errors").toBool();
-    m_serverUrl = m_account->value("server_address").toString();
-    m_addressbookPath = m_account->value("addressbook_path").toString(); // optional, may be empty.
+    m_ignoreSslErrors = accSrv.value("ignore_ssl_errors").toBool();
+    m_serverUrl = accSrv.value("server_address").toString();
+    m_addressbookPath = accSrv.value("addressbook_path").toString(); // optional, may be empty.
     if (m_serverUrl.isEmpty()) {
         LOG_WARNING(Q_FUNC_INFO << "no valid server url setting in account" << accountId);
         emit signInError();
         return;
     }
 
-    m_ident = m_account->credentialsId() > 0 ? SignOn::Identity::existingIdentity(m_account->credentialsId()) : 0;
+    m_ident = accSrv.authData().credentialsId() > 0 ?
+        SignOn::Identity::existingIdentity(accSrv.authData().credentialsId()) : 0;
     if (!m_ident) {
         LOG_WARNING(Q_FUNC_INFO << "no valid credentials for account" << accountId);
         emit signInError();
         return;
     }
 
-    Accounts::AccountService accSrv(m_account, srv);
     QString method = accSrv.authData().method();
     QString mechanism = accSrv.authData().mechanism();
     SignOn::AuthSession *session = m_ident->createSession(method);
